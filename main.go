@@ -13,7 +13,7 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "Post Request Successful!")
-	name := r.FormValue("name")
+	name := r.FormValue("name")  // we get the input values here
 	address := r.FormValue("address")
 
 	fmt.Fprintf(w, "Name = %s\n", name)
@@ -26,7 +26,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method != http.MethodGet {
+	if r.Method != http.MethodGet { //Check if the request method is get
 		http.Error(w, "Method Not Supported", http.StatusMethodNotAllowed)
 		return
 	}
@@ -36,7 +36,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fileServer := http.FileServer(http.Dir("/static"))
-	http.Handle("/", fileServer)
+	http.Handle("/", fileServer) // Handle requests to the root path with the file server.
 	http.HandleFunc("/form", formHandler)
 	http.HandleFunc("/hello", helloHandler)
 
